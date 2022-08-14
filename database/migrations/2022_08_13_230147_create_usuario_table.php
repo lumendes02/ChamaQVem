@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('cpf')->length(11);
             $table->string('email')->nullable();
             $table->unsignedBigInteger('idtipousuario');
-            $table->foreign('idtipousuario')->references('idtipousuario')->on('tipo_usuario');
+            $table->foreign('idtipousuario')->references('idtipousuario')->on('tipo_usuarios');
             $table->timestamps();
         });
     }

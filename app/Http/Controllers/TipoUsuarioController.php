@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TipoUsuarioModel;
+use App\Models\TipoUsuario;
 use Illuminate\Http\Request;
 
 class TipoUsuarioController extends Controller
@@ -14,8 +14,7 @@ class TipoUsuarioController extends Controller
      */
     public function index()
     {
-        $tipousuario = TipoUsuarioModel::get();
-
+        $tipousuario = TipoUsuario::get();
         if (!!$tipousuario) {
             return $this->successResponseJson(json_encode($tipousuario));
         }
