@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('usuario', function (Blueprint $table) {
+        Schema::create('usuarios', function (Blueprint $table) {
             $table->id('idusuario');
             $table->string('nome')->length(100);
             $table->string('login')->length(25);
@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->unsignedBigInteger('idtipousuario');
             $table->foreign('idtipousuario')->references('idtipousuario')->on('tipo_usuarios');
+            $table->rememberToken();
             $table->timestamps();
         });
     }

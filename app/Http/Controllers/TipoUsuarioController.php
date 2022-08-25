@@ -15,6 +15,7 @@ class TipoUsuarioController extends Controller
     public function index()
     {
         $tipousuario = TipoUsuario::get();
+        // dd($tipousuario);exit;
         if (!!$tipousuario) {
             return $this->successResponseJson(json_encode($tipousuario));
         }
@@ -29,7 +30,7 @@ class TipoUsuarioController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -40,7 +41,7 @@ class TipoUsuarioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
@@ -51,7 +52,13 @@ class TipoUsuarioController extends Controller
      */
     public function show($id)
     {
-        //
+        $tipousuario = TipoUsuario::find($id);
+
+        if (!!$tipousuario) {
+            return $this->successResponseJson(json_encode($tipousuario));
+        }
+
+        return $this->errorResponse("Tipo usuario não existe.");
     }
 
     /**
