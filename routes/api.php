@@ -1,6 +1,10 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CardapioController;
+use App\Http\Controllers\CidadeController;
+use App\Http\Controllers\LojaController;
+use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\TipoUsuarioController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,18 +26,35 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 //login
 Route::post('/login', [AuthController::class, 'login']);
-
-//logout
 Route::post('/logout', [AuthController::class, 'logout']);
-
-//Cadastro de conta.
 Route::post('/cadastro', [AuthController::class, 'cadastro']);
 
-
-
+Route::get('/tipousuario', [TipoUsuarioController::class, 'index']);
 Route::get('/tipousuario/{id}', [TipoUsuarioController::class, 'show']);
-Route::post('/tipousuario', [TipoUsuarioController::class, 'store']);
+
+Route::get('/cidade', [CidadeController::class, 'index']);
+Route::get('/cidade/{id}', [CidadeController::class, 'show']);
+
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::get('/tipousuario', [TipoUsuarioController::class, 'index']);
+    Route::get('/loja', [LojaController::class, 'index']);
+    Route::get('/loja/{id}', [LojaController::class, 'show']);
+    Route::post('/loja', [LojaController::class, 'store']);
+    Route::put('/loja/{id}', [LojaController::class, 'update']);
+    Route::delete('/loja/{id}', [LojaController::class, 'destroy']);
+
+    Route::get('/cardapio', [CardapioController::class, 'index']);
+    Route::get('/cardapio/{id}', [CardapioController::class, 'show']);
+    Route::get('/cardapioloja/{idloja}', [CardapioController::class, 'todosloja']);
+    Route::post('/cardapio', [CardapioController::class, 'store']);
+    Route::put('/cardapio/{id}', [CardapioController::class, 'update']);
+    Route::delete('/cardapio/{id}', [CardapioController::class, 'destroy']);
+
+    Route::get('/produto', [ProdutoController::class, 'index']);
+    Route::get('/produto/{id}', [ProdutoController::class, 'show']);
+    Route::get('/produtocardapio/{idcardapio}', [ProdutoController::class, 'todosproduto']);
+    Route::post('/produto', [ProdutoController::class, 'store']);
+    Route::put('/produto/{id}', [ProdutoController::class, 'update']);
+    Route::delete('/produto/{id}', [ProdutoController::class, 'destroy']);
+    
 });
