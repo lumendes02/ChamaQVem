@@ -31,6 +31,9 @@ Route::post('/cadastro', [AuthController::class, 'cadastro']);
 
 Route::get('/tipousuario', [TipoUsuarioController::class, 'index']);
 Route::get('/tipousuario/{id}', [TipoUsuarioController::class, 'show']);
+Route::post('/tipousuario', [TipoUsuarioController::class, 'store']);
+Route::put('/tipousuario/{id}', [TipoUsuarioController::class, 'update']);
+Route::delete('/tipousuario/{id}', [TipoUsuarioController::class, 'destroy']);
 
 Route::get('/cidade', [CidadeController::class, 'index']);
 Route::get('/cidade/{id}', [CidadeController::class, 'show']);

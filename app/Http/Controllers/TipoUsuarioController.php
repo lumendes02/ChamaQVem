@@ -41,7 +41,14 @@ class TipoUsuarioController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $dados = $request->all();
+        if (!!$dados) {
+            TipoUsuario::create($dados);
+
+            return $this->successResponse("Cadastro Realizado com Sucesso!");
+        }
+
+        return $this->errorResponse("Error ao Realizar Cadastro!");
     }
 
     /**
@@ -81,7 +88,19 @@ class TipoUsuarioController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $dados = TipoUsuario::find($id);
+
+        if (!!$dados) {
+
+            $dados->update([
+                'cargo' => $request->cargo
+            ]);
+
+            return $this->successResponse("Tipo usuario alterado com Sucesso!");
+
+        }
+
+        return $this->errorResponse("Error ao Realizar Alteração!");
     }
 
     /**
@@ -92,6 +111,13 @@ class TipoUsuarioController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $produto = TipoUsuario::find($id);
+
+        if (!!$produto) {
+            $produto->delete();
+            return $this->successResponse("Tipo usuario Deletado com Sucesso!");
+        } 
+        
+        return $this->errorResponse("Error ao Deletar o Perfil!");
     }
 }
