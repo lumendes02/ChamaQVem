@@ -6,6 +6,7 @@ use App\Http\Controllers\CidadeController;
 use App\Http\Controllers\LojaController;
 use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\TipoUsuarioController;
+use App\Http\Controllers\UsuarioController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +29,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout']);
 Route::post('/cadastro', [AuthController::class, 'cadastro']);
+
+Route::get('/usuario/{id}', [UsuarioController::class, 'show']);
 
 Route::get('/tipousuario', [TipoUsuarioController::class, 'index']);
 Route::get('/tipousuario/{id}', [TipoUsuarioController::class, 'show']);

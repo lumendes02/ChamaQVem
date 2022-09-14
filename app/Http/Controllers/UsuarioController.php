@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Usuario;
 use Illuminate\Http\Request;
 
 class UsuarioController extends Controller
@@ -45,7 +46,13 @@ class UsuarioController extends Controller
      */
     public function show($id)
     {
-        //
+        $usuario = Usuario::find($id);
+
+        if (!!$usuario) {
+            return $this->successResponseJson(json_encode($usuario));
+        }
+
+        return $this->errorResponse("Tipo usuario não existe.");
     }
 
     /**

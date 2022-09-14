@@ -16,9 +16,13 @@ class AuthController extends Controller
             'email' => 'required|string',
             'cpf' => 'required|string',
             'telefone' => 'required|string',
-            'idtipousuario' => 'required|integer',
+            'idtipousuario' => 'required',
             'senha' => 'required|string'
         ]);
+
+        if (is_string($fields['idtipousuario'])){
+            $fields['idtipousuario'] = (int)$fields['idtipousuario'];
+        }
 
 
         $user = Usuario::create([
