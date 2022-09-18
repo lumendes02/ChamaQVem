@@ -17,6 +17,8 @@ class UsuarioController extends Controller
         //
     }
 
+
+
     /**
      * Show the form for creating a new resource.
      *
@@ -75,7 +77,20 @@ class UsuarioController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $dados = Usuario::find($id);
+
+        if (!!$dados) {
+
+            $dados->update([
+                'nome' => $request->nome,
+                'nome' => $request->nome,
+            ]);
+
+            return $this->successResponse("Tipo usuario alterado com Sucesso!");
+
+        }
+
+        return $this->errorResponse("Error ao Realizar Alteração!");
     }
 
     /**
@@ -88,4 +103,28 @@ class UsuarioController extends Controller
     {
         //
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function desativar($id)
+    {
+        $dados = Usuario::find($id);
+
+        if (!!$dados) {
+
+            $dados->update([
+                'idtipousuario' => 2 
+            ]);
+
+            return $this->successResponse("usuario desativado com Sucesso!");
+
+        }
+
+        return $this->errorResponse("Error ao Realizar Alteração!");
+    }
 }
+

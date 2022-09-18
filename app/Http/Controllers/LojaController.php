@@ -42,6 +42,7 @@ class LojaController extends Controller
     public function store(Request $request)
     {
         $dados = $request->all();
+        
         if (!!$dados) {
             Loja::create($dados);
 
