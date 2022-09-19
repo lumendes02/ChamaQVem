@@ -83,10 +83,13 @@ class UsuarioController extends Controller
 
             $dados->update([
                 'nome' => $request->nome,
-                'nome' => $request->nome,
+                'telefone' => $request->telefone,
+                'email' => $request->telefone,
+                'login' => $request->login,
+                'cpf' => $request->cpf
             ]);
 
-            return $this->successResponse("Tipo usuario alterado com Sucesso!");
+            return $this->successResponse("Usuario alterado com Sucesso!");
 
         }
 
