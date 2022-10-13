@@ -69,6 +69,17 @@ class LojaController extends Controller
         
     }
 
+    public function especificoUsuario($id)
+    {
+        $loja = Loja::select('*')->where('idusuario', $id)->get();
+        if (!!$loja) {
+            return $this->successResponseJson(json_encode($loja));
+        }
+
+        return $this->errorResponse("Error ao Buscar loja.");
+        
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

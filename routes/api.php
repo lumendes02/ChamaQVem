@@ -42,13 +42,15 @@ Route::put('/tipousuario/{id}', [TipoUsuarioController::class, 'update']);
 Route::delete('/tipousuario/{id}', [TipoUsuarioController::class, 'destroy']);
 
 Route::get('/loja', [LojaController::class, 'index']);
-Route::get('/loja/{id}', [LojaController::class, 'show']);
+//Route::get('/loja/{id}', [LojaController::class, 'show']);
+Route::get('/loja/{id}', [LojaController::class, 'especificoUsuario']);
 Route::post('/loja', [LojaController::class, 'store']);
 Route::put('/loja/{id}', [LojaController::class, 'update']);
 Route::delete('/loja/{id}', [LojaController::class, 'destroy']);
 
 Route::get('/cardapio', [CardapioController::class, 'index']);
 Route::get('/cardapio/{id}', [CardapioController::class, 'show']);
+Route::get('/cardapioverifica/{id}', [CardapioController::class, 'verifica']);
 Route::get('/cardapioloja/{idloja}', [CardapioController::class, 'todosloja']);
 Route::post('/cardapio', [CardapioController::class, 'store']);
 Route::put('/cardapio/{id}', [CardapioController::class, 'update']);

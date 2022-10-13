@@ -54,6 +54,29 @@ class CardapioController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param  int  $idusuario
+     * @param  int  $idloja
+     * @return \Illuminate\Http\Response
+     */
+    public function verifica($idusuario, $idloja)
+    {
+        $cardapio = Cardapio::select("cardapios.*")
+        ->leftJoin('lojas', 'lojas.idloja', '=', 'cardapios.idloja')
+        ->leftJoin('usuarios', 'lojas.idusuario', '=', 'usuarios.idusuario')
+        ->where('lojas.idusuario', $idusuario)
+        ->where('lojas.idloja', $idloja)
+        ->get();
+
+        if (!!$cardapio) {
+            return $this->successResponseJson(json_encode($cardapio));
+        }
+
+        return $this->errorResponse("não existe.");
+    }
+
+    /**
+     * Display the specified resource.
+     *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
