@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CardapioController;
+use App\Http\Controllers\CarrinhoControler;
 use App\Http\Controllers\CidadeController;
 use App\Http\Controllers\LojaController;
 use App\Http\Controllers\ProdutoController;
@@ -66,6 +67,12 @@ Route::delete('/produto/{id}', [ProdutoController::class, 'destroy']);
 Route::get('/cidade', [CidadeController::class, 'index']);
 Route::get('/cidade/{id}', [CidadeController::class, 'show']);
 
+Route::get('/carrinho/{idusuario}/{idloja}', [CarrinhoControler::class, 'todosusuario']);
+Route::get('/carrinho/{idusuario}/{idloja}/{idproduto}', [CarrinhoControler::class, 'verificaProdutoIgual']);
+Route::post('/carrinho', [CarrinhoControler::class, 'store']);
+Route::put('/carrinho', [CarrinhoControler::class, 'update']);
+Route::put('/carrinho/{idusuario}/{idloja}', [CarrinhoControler::class, 'ativar']);
+Route::delete('/carrinho/{id}', [CarrinhoControler::class, 'destroy']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     
