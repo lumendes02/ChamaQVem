@@ -74,11 +74,13 @@ Route::put('/carrinho', [CarrinhoControler::class, 'update']);
 Route::put('/carrinho/{idusuario}/{idloja}', [CarrinhoControler::class, 'ativar']);
 Route::delete('/carrinho/{id}', [CarrinhoControler::class, 'destroy']);
 
+Route::get('/carrinholoja/{idloja}', [CarrinhoControler::class, 'todospedidosloja']);
+
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    
 
-    
 
-    
-    
+
+
+
+
 });
