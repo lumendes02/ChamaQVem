@@ -79,12 +79,13 @@ Route::delete('/carrinho/{id}', [CarrinhoControler::class, 'destroy']);
 
 Route::get('/mensagem/{idusuario}', [MensagemControler::class, 'todosusuario']);
 Route::post('/mensagem', [MensagemControler::class, 'store']);
+Route::get('/carrinholoja/{idloja}', [CarrinhoControler::class, 'todospedidosloja']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    
 
-    
 
-    
-    
+
+
+
+
 });

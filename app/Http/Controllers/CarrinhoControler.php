@@ -39,8 +39,44 @@ class CarrinhoControler extends Controller
             return $this->errorResponse("Erro ao Buscar");
 
         }
-        
+
     }
+
+    public function todospedidosloja($idloja)
+    {
+        $pesquisaCarrinho = DB::table('carrinhos')
+        ->leftJoin('usuarios', 'usuarios.idusuario', '=', 'carrinhos.idusuario')
+        // ->select('usuarios.nome', 'usuarios.telefone')
+        ->select('usuarios.*')
+        ->where([
+            ['idloja', '=', $idloja],
+            ['idstatus', '=', 2]
+        ])
+        ->groupBy('usuarios.idusuario')
+        ->get();
+
+        if ($pesquisaCarrinho) {
+
+            return $this->successResponseJson(json_encode($pesquisaCarrinho));
+
+        } else {
+
+            return $this->errorResponse("Erro ao Buscar");
+
+        }
+
+        if ($pesquisaCarrinho) {
+
+            return $this->successResponseJson(json_encode($pesquisaCarrinho));
+
+        } else {
+
+            return $this->errorResponse("Erro ao Buscar");
+
+        }
+
+    }
+
 
     public function ativar($idusuario,$idloja)
     {
@@ -52,7 +88,7 @@ class CarrinhoControler extends Controller
         ->get();
 
         if (!!$dados) {
-            
+
             foreach($dados as $dado) {
                 $dado->update([
                     'idstatus' => 2
@@ -64,7 +100,7 @@ class CarrinhoControler extends Controller
         }
 
         return $this->errorResponse("Error ao Realizar Alteração!");
-        
+
     }
 
     public function verificaProdutoIgual($idusuario,$idloja,$idproduto)
@@ -97,7 +133,7 @@ class CarrinhoControler extends Controller
             return 0;
 
         }
-        
+
     }
 
     /**
@@ -194,8 +230,8 @@ class CarrinhoControler extends Controller
         if (!!$loja) {
             $loja->delete();
             return $this->successResponse("Item Deletado com Sucesso!");
-        } 
-        
+        }
+
         return $this->errorResponse("Error ao Deletar o Perfil!");
     }
 }
