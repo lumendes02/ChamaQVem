@@ -5,6 +5,7 @@ use App\Http\Controllers\CardapioController;
 use App\Http\Controllers\CarrinhoControler;
 use App\Http\Controllers\CidadeController;
 use App\Http\Controllers\LojaController;
+use App\Http\Controllers\MensagemControler;
 use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\TipoUsuarioController;
 use App\Http\Controllers\UsuarioController;
@@ -34,6 +35,7 @@ Route::post('/cadastro', [AuthController::class, 'cadastro']);
 Route::get('/usuario/{id}', [UsuarioController::class, 'show']);
 Route::put('/usuario/{id}', [UsuarioController::class, 'update']);
 Route::delete('/usuario/{id}', [UsuarioController::class, 'desativar']);
+Route::get('/usuariopedidoativo/{idloja}', [UsuarioController::class, 'todosusuarioscompedidosativos']);
 
 
 Route::get('/tipousuario', [TipoUsuarioController::class, 'index']);
@@ -60,6 +62,7 @@ Route::delete('/cardapio/{id}', [CardapioController::class, 'destroy']);
 Route::get('/produto', [ProdutoController::class, 'index']);
 Route::get('/produto/{id}', [ProdutoController::class, 'show']);
 Route::get('/produtocardapio/{idcardapio}', [ProdutoController::class, 'todosproduto']);
+Route::get('/produtosPedidos/{idusuario}/{idloja}', [ProdutoController::class, 'todosprodutousuario']);
 Route::post('/produto', [ProdutoController::class, 'store']);
 Route::put('/produto/{id}', [ProdutoController::class, 'update']);
 Route::delete('/produto/{id}', [ProdutoController::class, 'destroy']);
@@ -73,6 +76,9 @@ Route::post('/carrinho', [CarrinhoControler::class, 'store']);
 Route::put('/carrinho', [CarrinhoControler::class, 'update']);
 Route::put('/carrinho/{idusuario}/{idloja}', [CarrinhoControler::class, 'ativar']);
 Route::delete('/carrinho/{id}', [CarrinhoControler::class, 'destroy']);
+
+Route::get('/mensagem/{idusuario}', [MensagemControler::class, 'todosusuario']);
+Route::post('/mensagem', [MensagemControler::class, 'store']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     

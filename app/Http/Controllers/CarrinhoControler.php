@@ -74,7 +74,8 @@ class CarrinhoControler extends Controller
         ->where([
             ['idusuario', '=', $idusuario],
             ['idloja', '=', $idloja],
-            ['idproduto', '=', $idproduto]
+            ['idproduto', '=', $idproduto],
+            ['idstatus', '=', 1]
         ])
         ->first();
 

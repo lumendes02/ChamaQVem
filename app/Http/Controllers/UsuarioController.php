@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Usuario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UsuarioController extends Controller
 {
@@ -16,7 +17,38 @@ class UsuarioController extends Controller
     {
         //
     }
+    
+    public function todosusuarioscompedidosativos($idloja)
+    {
+        $pesquisaUsuario = DB::table('usuarios')
+        ->leftJoin('carrinhos', 'carrinhos.idusuario', '=', 'usuarios.idusuario')
+        ->select(
+            'usuarios.idusuario',
+            'usuarios.nome',
+            'usuarios.login',
+            'usuarios.senha',
+            'usuarios.telefone',
+            'usuarios.cpf',
+            DB::raw('CAST(carrinhos.idstatus AS CHAR) AS email'),
+            DB::raw('count(carrinhos.idcarrinho) as idtipousuario'))
+        ->where([
+            ['idloja', '=', $idloja],
+            ['idstatus', '<>', 1]
+        ])
+        ->groupBy('carrinhos.idusuario')
+        ->get();
 
+        if ($pesquisaUsuario) {
+
+            return $this->successResponseJson(json_encode($pesquisaUsuario));
+
+        } else {
+
+            return $this->errorResponse("Erro ao Buscar");
+
+        }
+        
+    }
 
 
     /**

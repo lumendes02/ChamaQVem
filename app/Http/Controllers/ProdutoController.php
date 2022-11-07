@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Produto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProdutoController extends Controller
 {
@@ -76,6 +77,29 @@ class ProdutoController extends Controller
         if ($produtosCardapio) {
 
             return $this->successResponseJson(json_encode($produtosCardapio));
+
+        } else {
+
+            return $this->errorResponse("Erro ao Buscar a Pesquisa por Cardapio!");
+
+        }
+    }
+
+    public function todosprodutousuario($idusuario,$idloja)
+    {
+        $pesquisaCarrinho = DB::table('produtos')
+        ->leftJoin('carrinhos', 'carrinhos.idproduto', '=', 'produtos.idproduto')
+        ->select('produtos.*', 'carrinhos.*')
+        ->where([
+            ['idusuario', '=', $idusuario],
+            ['idloja', '=', $idloja]
+        ])
+        ->whereNotIn('idstatus', [1,3])
+        ->get();
+
+        if ($pesquisaCarrinho) {
+
+            return $this->successResponseJson(json_encode($pesquisaCarrinho));
 
         } else {
 
