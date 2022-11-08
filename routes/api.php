@@ -37,7 +37,6 @@ Route::put('/usuario/{id}', [UsuarioController::class, 'update']);
 Route::delete('/usuario/{id}', [UsuarioController::class, 'desativar']);
 Route::get('/usuariopedidoativo/{idloja}', [UsuarioController::class, 'todosusuarioscompedidosativos']);
 
-
 Route::get('/tipousuario', [TipoUsuarioController::class, 'index']);
 Route::get('/tipousuario/{id}', [TipoUsuarioController::class, 'show']);
 Route::post('/tipousuario', [TipoUsuarioController::class, 'store']);
@@ -75,7 +74,9 @@ Route::get('/carrinho/{idusuario}/{idloja}/{idproduto}', [CarrinhoControler::cla
 Route::post('/carrinho', [CarrinhoControler::class, 'store']);
 Route::put('/carrinho', [CarrinhoControler::class, 'update']);
 Route::put('/carrinho/{idusuario}/{idloja}', [CarrinhoControler::class, 'ativar']);
+Route::put('/carrinhoconfirma/{idusuario}/{idloja}', [CarrinhoControler::class, 'confirmar']);
 Route::delete('/carrinho/{id}', [CarrinhoControler::class, 'destroy']);
+Route::delete('/carrinhopedidos/{idusuario}/{idloja}', [CarrinhoControler::class, 'recusar']);
 
 Route::get('/mensagem/{idusuario}', [MensagemControler::class, 'todosusuario']);
 Route::post('/mensagem', [MensagemControler::class, 'store']);

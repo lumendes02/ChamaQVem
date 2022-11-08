@@ -83,7 +83,8 @@ class CarrinhoControler extends Controller
         $dados = carrinho::select(DB::raw('*'))
         ->where([
             ['idusuario', '=', $idusuario],
-            ['idloja', '=', $idloja]
+            ['idloja', '=', $idloja],
+            ['idstatus', '=', 1]
         ])
         ->get();
 
@@ -100,6 +101,54 @@ class CarrinhoControler extends Controller
         }
 
         return $this->errorResponse("Error ao Realizar Alteração!");
+
+    }
+
+    public function confirmar($idusuario,$idloja)
+    {
+        $dados = carrinho::select(DB::raw('*'))
+        ->where([
+            ['idusuario', '=', $idusuario],
+            ['idloja', '=', $idloja]
+        ])
+        ->get();
+
+        if (!!$dados) {
+
+            foreach($dados as $dado) {
+                $dado->update([
+                    'idstatus' => 4
+                ]);
+            }
+
+            return $this->successResponse("Itens ativados!");
+
+        }
+
+        return $this->errorResponse("Error ao Realizar Alteração!");
+
+    }
+
+    public function recusar($idusuario,$idloja)
+    {
+        $dados = carrinho::select(DB::raw('*'))
+        ->where([
+            ['idusuario', '=', $idusuario],
+            ['idloja', '=', $idloja]
+        ])
+        ->get();
+
+        if (!!$dados) {
+
+            foreach($dados as $dado) {
+                $dado->delete();
+            }
+
+            return $this->successResponse("Itens excluidos!");
+
+        }
+
+        return $this->errorResponse("Error ao Realizar exclusao!");
 
     }
 

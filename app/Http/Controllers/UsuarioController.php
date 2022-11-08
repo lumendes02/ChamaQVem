@@ -17,7 +17,7 @@ class UsuarioController extends Controller
     {
         //
     }
-    
+
     public function todosusuarioscompedidosativos($idloja)
     {
         $pesquisaUsuario = DB::table('usuarios')
@@ -47,7 +47,7 @@ class UsuarioController extends Controller
             return $this->errorResponse("Erro ao Buscar");
 
         }
-        
+
     }
 
 
@@ -152,7 +152,7 @@ class UsuarioController extends Controller
         if (!!$dados) {
 
             $dados->update([
-                'idtipousuario' => 2 
+                'idtipousuario' => 2
             ]);
 
             return $this->successResponse("usuario desativado com Sucesso!");
