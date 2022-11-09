@@ -25,15 +25,12 @@ class UsuarioController extends Controller
         ->select(
             'usuarios.idusuario',
             'usuarios.nome',
-            'usuarios.login',
-            'usuarios.senha',
-            'usuarios.telefone',
-            'usuarios.cpf',
-            DB::raw('CAST(carrinhos.idstatus AS CHAR) AS email'),
-            DB::raw('count(carrinhos.idcarrinho) as idtipousuario'))
+            DB::raw('carrinhos.idstatus'),
+            DB::raw('sum(carrinhos.quantidade) as quantidade'))
         ->where([
             ['idloja', '=', $idloja],
-            ['idstatus', '<>', 1]
+            ['idstatus', '<>', [1,3]]
+
         ])
         ->groupBy('carrinhos.idusuario')
         ->get();
