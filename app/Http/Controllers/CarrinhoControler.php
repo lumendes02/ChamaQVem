@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\carrinho;
+use App\Models\Pedidos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -80,6 +81,11 @@ class CarrinhoControler extends Controller
 
     public function ativar($idusuario,$idloja)
     {
+        $pedido = new Pedidos;
+        $pedido->idloja = $idloja;
+        $pedido->idusuario = $idusuario;
+        $pedido->save();
+
         $dados = carrinho::select(DB::raw('*'))
         ->where([
             ['idusuario', '=', $idusuario],
@@ -92,11 +98,12 @@ class CarrinhoControler extends Controller
 
             foreach($dados as $dado) {
                 $dado->update([
-                    'idstatus' => 2
+                    'idstatus' => 2,
+                    'idpedido' => $pedido->idpedido
                 ]);
             }
 
-            return $this->successResponse("Itens ativados!");
+            return $this->successResponse($dado->idpedido);
 
         }
 
@@ -104,12 +111,11 @@ class CarrinhoControler extends Controller
 
     }
 
-    public function confirmar($idusuario,$idloja)
+    public function confirmar($idpedido)
     {
         $dados = carrinho::select(DB::raw('*'))
         ->where([
-            ['idusuario', '=', $idusuario],
-            ['idloja', '=', $idloja]
+            ['idpedido', '=', $idpedido]
         ])
         ->get();
 
@@ -121,7 +127,7 @@ class CarrinhoControler extends Controller
                 ]);
             }
 
-            return $this->successResponse("Itens ativados!");
+            return $this->successResponse($dado->idpedido);
 
         }
 
@@ -129,23 +135,46 @@ class CarrinhoControler extends Controller
 
     }
 
-    public function recusar($idusuario,$idloja)
+    public function finaliza($idpedido)
     {
         $dados = carrinho::select(DB::raw('*'))
         ->where([
-            ['idusuario', '=', $idusuario],
-            ['idloja', '=', $idloja]
+            ['idpedido', '=', $idpedido]
         ])
         ->get();
 
         if (!!$dados) {
 
             foreach($dados as $dado) {
+                $dado->update([
+                    'idstatus' => 5
+                ]);
+            }
+            return $this->successResponse($dado->idpedido);
+        }
+        return $this->errorResponse("Error ao Realizar Alteração!");
+    }
+
+    public function recusar($idpedido)
+    {
+        $dados = carrinho::select(DB::raw('*'))
+        ->where([
+            ['idpedido', '=', $idpedido]
+        ])
+        ->get();
+
+        $pedido = Pedidos::find($idpedido);
+        if (!!$pedido) {
+            $pedido->delete();
+        }
+        
+        if (!!$dados) {
+
+            foreach($dados as $dado) {
                 $dado->delete();
             }
 
-            return $this->successResponse("Itens excluidos!");
-
+            return $this->successResponse($idpedido);
         }
 
         return $this->errorResponse("Error ao Realizar exclusao!");

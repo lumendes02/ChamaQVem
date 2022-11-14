@@ -19,6 +19,7 @@ class Produto extends Model
         'idcardapio',
         'descricao',
         'preco',
-        'desconto'
+        'desconto',
+        'imagem'
     ];
 }

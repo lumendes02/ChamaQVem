@@ -18,6 +18,28 @@ class UsuarioController extends Controller
         //
     }
 
+    
+
+    public function usuariomudalojeiro($idusuario)
+    {
+        $usuario = Usuario::find($idusuario);
+
+        if (!!$usuario) {
+
+            $usuario->update([
+                'tipousuario' => 4
+            ]);
+
+            return $this->successResponse("Usuario alterado com Sucesso!");
+
+        } else {
+
+            return $this->errorResponse("Erro ao Buscar");
+
+        }
+
+    }
+
     public function todosusuarioscompedidosativos($idloja)
     {
         $pesquisaUsuario = DB::table('usuarios')
@@ -25,14 +47,15 @@ class UsuarioController extends Controller
         ->select(
             'usuarios.idusuario',
             'usuarios.nome',
-            DB::raw('carrinhos.idstatus'),
-            DB::raw('sum(carrinhos.quantidade) as quantidade'))
+            'carrinhos.idstatus',
+            DB::raw('sum(carrinhos.quantidade) as quantidade'),
+            'carrinhos.idpedido'
+            )
         ->where([
-            ['idloja', '=', $idloja],
-            ['idstatus', '<>', [1,3]]
-
+            ['idloja', '=', $idloja]
         ])
-        ->groupBy('carrinhos.idusuario')
+        ->whereIn('carrinhos.idstatus', [2,4])
+        ->groupBy('carrinhos.idpedido')
         ->get();
 
         if ($pesquisaUsuario) {

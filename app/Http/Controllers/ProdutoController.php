@@ -85,14 +85,15 @@ class ProdutoController extends Controller
         }
     }
 
-    public function todosprodutousuario($idusuario,$idloja)
+    public function todosprodutousuario($idusuario,$idloja,$idpedido)
     {
         $pesquisaCarrinho = DB::table('produtos')
         ->leftJoin('carrinhos', 'carrinhos.idproduto', '=', 'produtos.idproduto')
         ->select('produtos.*', 'carrinhos.*')
         ->where([
             ['idusuario', '=', $idusuario],
-            ['idloja', '=', $idloja]
+            ['idloja', '=', $idloja],
+            ['carrinhos.idpedido', '=', $idpedido]
         ])
         ->whereNotIn('idstatus', [1,3])
         ->get();

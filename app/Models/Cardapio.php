@@ -17,6 +17,7 @@ class Cardapio extends Model
      */
     protected $fillable = [
         'idloja',
-        'fantasia'
+        'fantasia',
+        'imagem'
     ];
 }

@@ -20,6 +20,7 @@ class mensagens extends Model
         'idloja',
         'titulo',
         'textomensagem',
-        'idstatus'
+        'idstatus',
+        'idpedido'
     ];
 }

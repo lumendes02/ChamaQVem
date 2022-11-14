@@ -36,6 +36,8 @@ Route::get('/usuario/{id}', [UsuarioController::class, 'show']);
 Route::put('/usuario/{id}', [UsuarioController::class, 'update']);
 Route::delete('/usuario/{id}', [UsuarioController::class, 'desativar']);
 Route::get('/usuariopedidoativo/{idloja}', [UsuarioController::class, 'todosusuarioscompedidosativos']);
+Route::put('/usuariolojeiro/{idusuario}', [UsuarioController::class, 'usuariomudalojeiro']);
+
 
 Route::get('/tipousuario', [TipoUsuarioController::class, 'index']);
 Route::get('/tipousuario/{id}', [TipoUsuarioController::class, 'show']);
@@ -61,7 +63,7 @@ Route::delete('/cardapio/{id}', [CardapioController::class, 'destroy']);
 Route::get('/produto', [ProdutoController::class, 'index']);
 Route::get('/produto/{id}', [ProdutoController::class, 'show']);
 Route::get('/produtocardapio/{idcardapio}', [ProdutoController::class, 'todosproduto']);
-Route::get('/produtosPedidos/{idusuario}/{idloja}', [ProdutoController::class, 'todosprodutousuario']);
+Route::get('/produtosPedidos/{idusuario}/{idloja}/{idpedido}', [ProdutoController::class, 'todosprodutousuario']);
 Route::post('/produto', [ProdutoController::class, 'store']);
 Route::put('/produto/{id}', [ProdutoController::class, 'update']);
 Route::delete('/produto/{id}', [ProdutoController::class, 'destroy']);
@@ -74,9 +76,10 @@ Route::get('/carrinho/{idusuario}/{idloja}/{idproduto}', [CarrinhoControler::cla
 Route::post('/carrinho', [CarrinhoControler::class, 'store']);
 Route::put('/carrinho', [CarrinhoControler::class, 'update']);
 Route::put('/carrinho/{idusuario}/{idloja}', [CarrinhoControler::class, 'ativar']);
-Route::put('/carrinhoconfirma/{idusuario}/{idloja}', [CarrinhoControler::class, 'confirmar']);
+Route::put('/carrinhoconfirma/{idpedido}', [CarrinhoControler::class, 'confirmar']);
+Route::put('/carrinhofinaliza/{idpedido}', [CarrinhoControler::class, 'finaliza']);
 Route::delete('/carrinho/{id}', [CarrinhoControler::class, 'destroy']);
-Route::delete('/carrinhopedidos/{idusuario}/{idloja}', [CarrinhoControler::class, 'recusar']);
+Route::delete('/carrinhopedidos/{idpedido}', [CarrinhoControler::class, 'recusar']);
 
 Route::get('/mensagem/{idusuario}', [MensagemControler::class, 'todosusuario']);
 Route::post('/mensagem', [MensagemControler::class, 'store']);

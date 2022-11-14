@@ -21,6 +21,7 @@ class carrinho extends Model
         'idproduto',
         'preco',
         'quantidade',
-        'idstatus'
+        'idstatus',
+        'idpedido'
     ];
 }

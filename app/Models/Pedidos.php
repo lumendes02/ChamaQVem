@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Loja extends Model
+class Pedidos extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'idloja';
+    protected $primaryKey = 'idpedido';
     /**
      * The attributes that are mass assignable.
      *
@@ -17,11 +17,6 @@ class Loja extends Model
      */
     protected $fillable = [
         'idusuario',
-        'idcidade',
-        'fantasia',
-        'endereco',
-        'cnpj',
-        'cep',
-        'imagem'
+        'idloja'
     ];
 }
