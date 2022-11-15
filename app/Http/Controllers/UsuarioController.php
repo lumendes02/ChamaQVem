@@ -27,10 +27,10 @@ class UsuarioController extends Controller
         if (!!$usuario) {
 
             $usuario->update([
-                'tipousuario' => 4
+                'idtipousuario' => 6
             ]);
 
-            return $this->successResponse("Usuario alterado com Sucesso!");
+            return $this->successResponse($usuario->idtipousuario);
 
         } else {
 

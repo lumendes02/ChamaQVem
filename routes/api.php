@@ -44,6 +44,7 @@ Route::get('/tipousuario/{id}', [TipoUsuarioController::class, 'show']);
 Route::post('/tipousuario', [TipoUsuarioController::class, 'store']);
 Route::put('/tipousuario/{id}', [TipoUsuarioController::class, 'update']);
 Route::delete('/tipousuario/{id}', [TipoUsuarioController::class, 'destroy']);
+Route::get('/pegatipo/{id}', [TipoUsuarioController::class, 'pegatipo']);
 
 Route::get('/loja', [LojaController::class, 'index']);
 //Route::get('/loja/{id}', [LojaController::class, 'show']);

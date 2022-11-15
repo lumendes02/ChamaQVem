@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\TipoUsuario;
+use App\Models\Usuario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TipoUsuarioController extends Controller
 {
@@ -22,6 +24,8 @@ class TipoUsuarioController extends Controller
 
         return $this->errorResponse("Error ao Buscar TipoUsuario.");
     }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -63,6 +67,28 @@ class TipoUsuarioController extends Controller
 
         if (!!$tipousuario) {
             return $this->successResponseJson(json_encode($tipousuario));
+        }
+
+        return $this->errorResponse("Tipo usuario não existe.");
+    }
+
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function pegatipo($idusuario)
+    {
+        $dado = Usuario::select(DB::raw('*'))
+        ->where([
+            ['idusuario', '=', $idusuario]
+        ])
+        ->get();
+
+        if (!!$dado) {
+            return $this->successResponseJson(json_encode($dado->idtipousuario));
         }
 
         return $this->errorResponse("Tipo usuario não existe.");
